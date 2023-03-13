@@ -1,15 +1,17 @@
-import './App.css';
-import PostAPI from './utils/PostAPI';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Authentication from './pages/authentication/Authentication';
+import Home from './pages/home/Home';
 
 function App() {
-  const handleClick = () => {
-    PostAPI.getPosts();
-  };
 
   return (
-    <div className="App">
-      <button onClick={handleClick}>Click me!</button>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/auth" element={<Authentication/>} />
+      </Routes>
+    </Router>
   );
 }
 

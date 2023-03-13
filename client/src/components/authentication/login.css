@@ -1,0 +1,7 @@
+.loginContainer {
+    border: 1px solid #ccc;
+}
+
+.loginContainer form {
+    display: flex;
+}

@@ -1,0 +1,7 @@
+.signupContainer {
+    border: 1px solid #ccc;
+}
+
+.signupContainer form {
+    display: flex;
+}

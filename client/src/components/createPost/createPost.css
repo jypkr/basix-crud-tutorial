@@ -1,0 +1,7 @@
+.createPostContainer {
+    border: 1px solid #ccc;
+}
+
+.createPostContainer form {
+    display: flex;
+}
