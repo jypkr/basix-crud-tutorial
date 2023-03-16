@@ -1,3 +1,9 @@
 .bulletinBoardContainer {
     border: 1px solid #ccc;
 }
+
+.bulletinBoardContainer form {
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+}

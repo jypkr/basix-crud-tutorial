@@ -2,15 +2,13 @@ import './login.css';
 
 import React, { useState } from 'react';
 
-import PostAPI from '../../utils/PostAPI';
-
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        PostAPI.getPosts();
+
     };
 
   return (
