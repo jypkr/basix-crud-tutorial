@@ -13,8 +13,6 @@ const db = require('./models');
 // Router
 app.use(require('./routes'));
 
-// Passport-JWT
-
 
 db.sequelize.sync().then(() => {
     app.listen(process.env.PORT || 3001, () => {

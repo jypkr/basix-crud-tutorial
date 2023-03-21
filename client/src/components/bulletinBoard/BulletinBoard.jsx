@@ -47,7 +47,7 @@ const BulletinBoard = () => {
             <form>
                 <div>
                     <div>
-                        POST UPDATE HERE
+                        POST UPDATE HERE. Type updated title and updated post text and click edit button on the post you want to update.
                     </div>
                     <br/>
                     <label htmlFor='title'>Title</label><br/>
