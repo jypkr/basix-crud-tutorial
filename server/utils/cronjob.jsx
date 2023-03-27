@@ -1,6 +1,6 @@
 const cron = require('node-cron');
 const { checkForNewPosts } = require('./checkForNewPosts.jsx');
 
-cron.schedule('*/30 * * * * *', checkForNewPosts);
+cron.schedule('*/5 * * * * *', checkForNewPosts);
 
 module.exports = { cron };

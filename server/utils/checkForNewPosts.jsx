@@ -1,13 +1,24 @@
+const axios = require('axios');
 const cheerio = require('cheerio');
 const request = require('request');
 const nodemailer = require('nodemailer');
 
 
 async function checkForNewPosts() {
-    const response = await request('https://medium.com/tag/programming');
-    const $ = cheerio.load(response);
+    const url = 'https://medium.com/tag/programming';
+    const response = await axios.get(url);
+    const html = response.data;
 
-    console.log($);
+    const $ = cheerio.load(html);
+    const titles = [];
+    const links = [];
+
+    $("article h2").each(function () {
+        titles.push($(this).text());
+    })
+
+
+    console.log(titles);
 
     console.log('checkForNewPosts function called');
 };
