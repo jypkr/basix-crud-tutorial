@@ -30,7 +30,6 @@ function sendEmail(title, author, post_link) {
     });
 }
 
-
 async function checkForNewPosts() {
     const url = 'https://medium.com/tag/programming';
     const response = await axios.get(url);
@@ -43,7 +42,7 @@ async function checkForNewPosts() {
         const title = $(article).find('h2').text();
         const author = $(article).find('div.ab.q p.bd.b.be.z.ff.jo.fg.fh.fi.fj.dh.fk.bi').text();
         const author_link = 'https://medium.com' + $(article).find('a.ae.af.ag.ah.ai.aj.ak.al.am.an.ao.ap.aq.ar.as').attr('href');
-        const post_link = 'example needed';
+        const post_link = 'https://medium.com' + $(article).find('div.jv.l a.ae.af.ag.ah.ai.aj.ak.al.am.an.ao.ap.aq.ar.as').attr('href');
 
         // check if post already exists in database
         const post = await mediumPosts.findOne({ 
