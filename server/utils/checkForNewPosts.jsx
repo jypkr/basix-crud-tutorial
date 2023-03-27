@@ -1,7 +1,36 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const request = require('request');
+
+require('dotenv').config();
+
+const { mediumPosts } = require('../models');
+
 const nodemailer = require('nodemailer');
+
+function sendEmail(title, author, post_link) {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'wodusqkr1210@gmail.com',
+            pass: process.env.EMAIL_PWD
+        }
+    });
+
+    const mailOptions = {
+        from: 'wodusqkr1210@gmail.com',
+        to: 'wodusqkr1210@gmail.com',
+        subject: 'New Medium Post',
+        html: `<h2>Title: ${title}</h2><p>Author: ${author}</p><p><a href="${post_link}">Read the post</a></p>`
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+}
 
 
 async function checkForNewPosts() {
@@ -10,20 +39,31 @@ async function checkForNewPosts() {
     const html = response.data;
 
     const $ = cheerio.load(html);
-    const titles = [];
-    const authors = [];
-    const author_links = [];
-    const post_links = [];
 
     $("article").each(async function (i, article) {
-        titles.push($(article).find('h2').text());
-        authors.push($(article).find('div.ab.q p.bd.b.be.z.ff.jo.fg.fh.fi.fj.dh.fk.bi').text());
-        author_links.push('https://medium.com' + $(article).find('a.ae.af.ag.ah.ai.aj.ak.al.am.an.ao.ap.aq.ar.as').attr('href'));
-    })
+        // need to add post_link
+        const title = $(article).find('h2').text();
+        const author = $(article).find('div.ab.q p.bd.b.be.z.ff.jo.fg.fh.fi.fj.dh.fk.bi').text();
+        const author_link = 'https://medium.com' + $(article).find('a.ae.af.ag.ah.ai.aj.ak.al.am.an.ao.ap.aq.ar.as').attr('href');
+        const post_link = 'example needed';
 
-    console.log(titles);
-    console.log(authors);
-    console.log(author_links);
+        // check if post already exists in database
+        const post = await mediumPosts.findOne({ 
+            where: { title: title }
+        });
+
+        // if post does not exist in database, send email and save post to database
+        if (!post) {
+            const post = new mediumPosts({
+                title, author, author_link, post_link
+            });      
+            await post.save();
+
+            // send email
+            // await sendEmail(title, author, post_link);
+        }
+
+    })
 
     console.log('checkForNewPosts function called');
 };

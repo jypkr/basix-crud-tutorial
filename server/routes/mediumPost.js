@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { Posts } = require('../models');
+const { mediumPosts } = require('../models');
 
 router.get('/mediumposts', async (req, res) => {
-    const listOfPosts = await Posts.findAll();
+    const listOfPosts = await mediumPosts.findAll();
     res.json(listOfPosts);
 });
 
 router.post('/mediumposts', async (req, res) => {
     const post = req.body;
-    await Posts.create(post);
+    await mediumPosts.create(post);
 
     res.json(post);
 });
@@ -17,7 +17,7 @@ router.post('/mediumposts', async (req, res) => {
 router.put('/mediumposts/:id', async (req, res) => {
     const id = req.params.id;
     const { title, author, link } = req.body;
-    await Posts.update({ title, author, link }, {
+    await mediumPosts.update({ title, author, link }, {
         where: { id }
     });
 
@@ -26,7 +26,7 @@ router.put('/mediumposts/:id', async (req, res) => {
 
 router.delete('/mediumposts/:id', async (req, res) => {
     const id = req.params.id;
-    await Posts.destroy({
+    await mediumPosts.destroy({
         where: { id }
     });
 
