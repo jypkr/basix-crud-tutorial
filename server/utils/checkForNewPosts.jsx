@@ -1,11 +1,9 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+const { mediumPosts } = require('../models');
+const nodemailer = require('nodemailer');
 
 require('dotenv').config();
-
-const { mediumPosts } = require('../models');
-
-const nodemailer = require('nodemailer');
 
 function sendEmail(title, author, post_link) {
     const transporter = nodemailer.createTransport({
